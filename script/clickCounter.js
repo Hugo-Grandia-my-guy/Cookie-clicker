@@ -4,5 +4,6 @@ let metersPerClick = 1;
 document.getElementById('Bike').addEventListener("click", clickCounter)
 
 function clickCounter() {
-    document.getElementById('meterCounter').innerText = metersAmount + metersPerClick;
+    metersAmount = metersAmount + metersPerClick;
+    document.getElementById('meterCounter').innerText = metersAmount;
 }

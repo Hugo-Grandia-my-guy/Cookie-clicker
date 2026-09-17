@@ -52,7 +52,7 @@ buyGarageButton.addEventListener("click",function () {
         Garage = metersPerClick + 4;
     }
 });
-i
+
 
 
 

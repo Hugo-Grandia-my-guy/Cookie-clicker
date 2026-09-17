@@ -15,7 +15,7 @@ let ParkRuthePrijs = 10
 
 
 
-buyParkRutheButton.addEventListener("click",function (PassiveIncome) {
+buyParkRutheButton.addEventListener("click",function () {
     if (metersAmount >= ParkRuthePrijs) {
         metersAmount = metersAmount - ParkRuthePrijs;
         ParkRuthe = metersPerClick + 4;
@@ -31,7 +31,7 @@ let ParisPrijs = 10
 
 
 
-buyParisButton.addEventListener("click",function (factory) {
+buyParisButton.addEventListener("click",function () {
     if (metersAmount >= ParisPrijs) {
         metersAmount = metersAmount - ParisPrijs;
         Paris = metersPerClick + 4;
@@ -46,7 +46,7 @@ let GaragePrijs = 10
 
 
 
-buyGarageButton.addEventListener("click",function (factory) {
+buyGarageButton.addEventListener("click",function () {
     if (metersAmount >= GaragePrijs) {
         metersAmount = metersAmount - GaragePrijs;
         Garage = metersPerClick + 4;

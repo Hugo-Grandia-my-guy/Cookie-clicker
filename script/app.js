@@ -1,6 +1,6 @@
 class player{
     constructor(meters){
-        this.meters = 0;
+        this.meters = meters;
     }
 
     clickCounter() {

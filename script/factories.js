@@ -11,7 +11,7 @@ class factory {
     }
 }
 
-class rarkMuthe extends factory {
+class ParkRuthe extends factory {
     constructor(name, picture, metersPerSec, baseCost){
         super(metersPerSec, baseCost);
         this.name = name;

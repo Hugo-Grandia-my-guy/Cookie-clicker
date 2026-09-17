@@ -1,6 +1,6 @@
 let metersAmount = 0;
 let metersPerClick = 1;
-
+let passiveIncome = 0;
 document.getElementById('Bike').addEventListener("click", clickCounter)
 
 function clickCounter() {
@@ -8,16 +8,16 @@ function clickCounter() {
     document.getElementById('meterCounter').innerText = metersAmount;
 }
 
-const buyMarkRutteButton = document.getElementById("buyMarkRutteButton");
+const buyParkRutheButton = document.getElementById("buyParkRutheButton");
 
-let MarkRutte =0;
-let MarkRuttePrijs = 10
+let ParkRuthe =0;
+let ParkRuthePrijs = 10
 
 
 
-buyMarkRutteButton.addEventListener("click",function () {
-    if (metersAmount >= MarkRutte) {
-        metersAmount = metersAmount - MarkRuttePrijs;
-        MarkRutte = MarkRutte + 4;
+buyParkRutheButton.addEventListener("click",function () {
+    if (metersAmount >= ParkRuthe) {
+        metersAmount = metersAmount - ParkRuthePrijs;
+        ParkRuthe = metersPerClick + 4;
     }
 });

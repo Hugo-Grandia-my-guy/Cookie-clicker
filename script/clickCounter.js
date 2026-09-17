@@ -1,7 +1,7 @@
 let metersAmount = 0;
 let metersPerClick = 1;
-let passiveIncome = 0;
-document.getElementById('Bike').addEventListener("click", clickCounter)
+
+document.getElementById('bikeButton').addEventListener("click", clickCounter)
 
 function clickCounter() {
     metersAmount = metersAmount + metersPerClick;

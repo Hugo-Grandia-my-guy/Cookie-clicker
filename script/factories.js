@@ -1,19 +1,19 @@
 class factory {
-    constructor(cost, metersPerSecond) {
-        this.cost = cost;
-        this.metersPerSecond = metersPerSecond;
+    constructor(baseCost, metersPerSec) {
+        this.baseCost = baseCost;
+        this.metersPerSec = metersPerSec;
     }
 
     passiveIncome(){
         setInterval(function (){
-            metersAmount = metersAmount + this.metersPerSecond;
+            metersAmount = metersAmount + this.metersPerSec;
         }, 1000)
     }
 }
 
 class rarkMuthe extends factory {
-    constructor(name, picture, metersPerSecond, cost){
-        super(metersPerSecond, cost);
+    constructor(name, picture, metersPerSec, baseCost){
+        super(metersPerSec, baseCost);
         this.name = name;
     }
 

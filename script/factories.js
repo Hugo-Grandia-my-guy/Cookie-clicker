@@ -3,13 +3,12 @@ class factory {
         this.name = name;
         this.baseCost = baseCost;
         this.baseMps = baseMps;
-
         this.count = 0;
         this.costMultiplier = 1.15;
     }
 
     get currentCost() {
-        return Math.floor(this.baseCost * Math.pow(this.costMultiplier, this.count));
+        return this.getCostFor(1);
     }
 
     getCostFor(amount) {
@@ -31,13 +30,17 @@ class factory {
         return this.count * this.baseMps;
     }
 
-    buy(){
-
+    buy(player, amount = 1) {
+        const cost = this.getCostFor(amount);
+        if (player.meters >= cost && amount > 0) {
+            player.meters -= cost;
+            this.count += amount;
+            return true;
+        }
+        return false;
     }
-
 }
 
-let cursor = new factory("cursor", 10, 0.1);
-let parkRuthe = new factory("parkRuthe", 100, 1);
-let garage = new factory("garage", 5000, 50);
-
+const cursor = new factory("cursor", 10, 0.1);
+const parkRuthe = new factory("parkRuthe", 100, 1);
+const garage = new factory("garage", 5000, 50);

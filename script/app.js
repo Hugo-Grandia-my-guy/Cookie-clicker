@@ -1,23 +1,23 @@
 class player{
-    constructor(meters){
-        this.meters = meters;
+    constructor(){
+        this.meters = 0;
+        this.metersPerClick = 1;
     }
 
     clickCounter() {
-        this.meters = metersAmount + metersPerClick;
-        document.getElementById('meterCounter').innerText = metersAmount;
+        return this.meters += this.metersPerClick;
     }
 }
 
-class Game{
+class Game {
     constructor() {
         this.player = new player();
-
+        this.factories = [cursor, parkRuthe, garage];
         this.lastUpdate = Date.now();
     }
 
     get totalMps() {
-        return this.factory.reduce((sum, factory) => sum + factory.totalMps, 0);
+        return this.factories.reduce((sum, factory) => sum + factory.totalMps, 0);
     }
 
     update() {
@@ -25,7 +25,6 @@ class Game{
         const deltaTime = (now - this.lastUpdate) / 1000;
         this.lastUpdate = now;
 
-        // Meters based on time difference
         const metersGained = this.totalMps * deltaTime;
         this.player.meters += metersGained;
 
@@ -33,22 +32,64 @@ class Game{
     }
 
     render() {
-        console.clear();
-        console.log(`--- BICYCLE CLICKER ---`);
-        console.log(`Meters: ${Math.floor(this.player.meters)}`);
-        console.log(`Income (MPS): ${this.totalMps.toFixed(1)}/sec`);
-        console.log(`----------------------`);
-        console.log(`Available factories:`);
-        this.factory.forEach(b => {
-            console.log(` - ${b.name}: ${b.count} (CPS: ${b.totalMps.toFixed(1)})`);
+        const meterElem = document.getElementById('meterCounter');
+        if (meterElem) meterElem.innerText = Math.floor(this.player.meters);
+
+        const mpsElem = document.getElementById('mpsCounter');
+        if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
+
+        this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
+        this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
+        this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
+    }
+
+    updateFactoryUI(counterId, buttonId, factoryInstance) {
+        const counterElem = document.getElementById(counterId);
+        const buttonElem = document.getElementById(buttonId);
+
+        if (counterElem) {
+            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
+        }
+        if (buttonElem) {
+            const cost = factoryInstance.currentCost;
+            buttonElem.innerText = `Koop ${factoryInstance.name} (${cost} m)`;
+            buttonElem.disabled = this.player.meters < cost;
+        }
+    }
+
+    setupEventListeners() {
+        const bikeBtn = document.getElementById('bikeButton');
+        if (bikeBtn) {
+            bikeBtn.addEventListener('click', () => {
+                this.player.clickCounter();
+                this.render();
+            });
+        }
+
+        const purchases = [
+            { id: 'buyCursorButton', instance: cursor },
+            { id: 'buyParkRutheButton', instance: parkRuthe },
+            { id: 'buyGarageButton', instance: garage }
+        ];
+
+        purchases.forEach(({ id, instance }) => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    instance.buy(this.player, 1);
+                    this.render();
+                });
+            }
         });
     }
 
     start() {
-        // App tick every 0.5 sec
-        const TICK_RATE = 500;
-
+        this.setupEventListeners();
+        const TICK_RATE = 100; // Updates DOM 10 times per second for smooth updates
         this.lastUpdate = Date.now();
         setInterval(() => this.update(), TICK_RATE);
     }
 }
+
+const game = new Game();
+game.start();

@@ -8,24 +8,32 @@
 <body>
 <div id="app">
     <div id="topbar">
-
+        <h2>Meters per second: <span id="mpsCounter">0.0</span>/s</h2>
     </div>
     <div id="game">
         <div id="clickWindow">
-            <div id="meterCounter"></div>
+            <h1>Meters: <span id="meterCounter">0</span></h1>
             <div id="bike">
                 <button id="bikeButton">Bike</button>
             </div>
         </div>
-        <div id="upgradesWindow"></div>
-            <button id="buyParkRutheButton">ParkRuthe plaats</button>
-            <br>
-             <button id="buyParisButton">Paris plaats</button>
-             <br>
-            <button id="buyGarageButton">Garage plaats</button>
+        <div id="upgradesWindow">
+            <div>
+                <span id="cursorCounter">Cursor: 0</span>
+                <button id="buyCursorButton" class="upgradeBtn">Cursor plaats</button>
+            </div>
+            <div>
+                <span id="parkRutheCounter">ParkRuthe: 0</span>
+                <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe plaats</button>
+            </div>
+            <div>
+                <span id="garageCounter">Garage: 0</span>
+                <button id="buyGarageButton" class="upgradeBtn">Garage plaats</button>
+            </div>
         </div>
+    </div>
 </div>
-<script src="script/clickCounter.js"></script>
 <script src="script/factories.js"></script>
+<script src="script/app.js"></script>
 </body>
 </html>

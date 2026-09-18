@@ -1,6 +1,6 @@
 class player{
     constructor(){
-        this.meters = 0;
+        this.meters = 1000000000000;
         this.metersPerClick = 1;
     }
 
@@ -12,7 +12,12 @@ class player{
 class Game {
     constructor() {
         this.player = new player();
-        this.factories = [cursor, parkRuthe, garage];
+        this.factories = [
+            cursor,
+            parkRuthe,
+            garage,
+            eBike
+        ];
         this.lastUpdate = Date.now();
     }
 
@@ -41,6 +46,7 @@ class Game {
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
+        this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
     }
 
     updateFactoryUI(counterId, buttonId, factoryInstance) {
@@ -69,7 +75,8 @@ class Game {
         const purchases = [
             { id: 'buyCursorButton', instance: cursor },
             { id: 'buyParkRutheButton', instance: parkRuthe },
-            { id: 'buyGarageButton', instance: garage }
+            { id: 'buyGarageButton', instance: garage },
+            { id: 'buyEBikeButton', instance: eBike }
         ];
 
         purchases.forEach(({ id, instance }) => {

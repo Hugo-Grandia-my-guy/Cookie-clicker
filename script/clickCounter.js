@@ -46,13 +46,16 @@ let GaragePrijs = 10
 
 
 
-buyGarageButton.addEventListener("click",function () {
+buyGarageButton.addEventListener("click", function () {
     if (metersAmount >= GaragePrijs) {
         metersAmount = metersAmount - GaragePrijs;
-        Garage = metersPerClick + 4;
+        Garage = metersAmount + 4;
+        document.getElementById('meterCounter').innerText = metersAmount;
     }
 });
 
-
-
+setInterval(function () {
+    metersAmount = metersAmount + ParkRuthe + Paris + Garage;
+    document.getElementById('meterCounter').innerText = metersAmount;
+}, 1000);
 

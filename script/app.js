@@ -1,6 +1,6 @@
 class player{
     constructor(){
-        this.meters = 0;
+        this.meters = 10000;
         this.metersPerClick = 1;
     }
 
@@ -19,10 +19,25 @@ class Game {
             eBike
         ];
         this.lastUpdate = Date.now();
+        this.currentMultiplier = 1;
     }
 
     get totalMps() {
         return this.factories.reduce((sum, factory) => sum + factory.totalMps, 0);
+    }
+
+    get buyAmountAndCost(factoryInstance){
+        let amount = 0;
+        if(this.currentMultiplier === 'max') {
+            amount = factoryInstance.getMaxAffordable(this.player.meters);
+            if(amount === 0) {
+                return {
+                    amountToBuy: 0,
+                    cost: factoryInstance.currentCost,
+                    nextUnitCost: factoryInstance.currentCost
+                }
+            }
+        }
     }
 
     update() {
@@ -89,7 +104,7 @@ class Game {
         }
         if (buttonElem) {
             const cost = factoryInstance.currentCost;
-            buttonElem.innerText = `Koop ${factoryInstance.name} (${cost} m)`;
+            buttonElem.innerText = `Buy ${factoryInstance.name} (${cost} m)`;
             buttonElem.disabled = this.player.meters < cost;
         }
     }

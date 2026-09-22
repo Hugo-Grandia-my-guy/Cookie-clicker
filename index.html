@@ -1,41 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="style/mainstyle.css">
     <meta charset="UTF-8">
-    <title>Bicycle clicker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicycle Clicker</title>
+    <link rel="stylesheet" href="style/mainstyle.css">
 </head>
+
 <body>
+
 <div id="app">
     <div id="topbar">
         <h2>Meters per second: <span id="mpsCounter">0.0</span>/s</h2>
     </div>
+
     <div id="game">
         <div id="clickWindow">
             <h1>Meters: <span id="meterCounter">0</span></h1>
             <div id="bike">
-                <button id="bikeButton">Bike</button>
+                <button id="bikeButton">🚲 Bike</button>
             </div>
         </div>
+
         <div id="upgradesWindow">
-            <div>
+            <div id="multiplierBar">
+                <span class="mult-title">Buy mode:</span>
+                <div class="mult-group">
+                    <button class="multBtn active" data-mult="1">x1</button>
+                    <button class="multBtn" data-mult="10">x10</button>
+                    <button class="multBtn" data-mult="100">x100</button>
+                    <button class="multBtn" data-mult="max">Max</button>
+                </div>
+            </div>
+
+            <div class="upgrade-item">
                 <span id="cursorCounter">Cursor: 0</span>
-                <button id="buyCursorButton" class="upgradeBtn">Cursor plaats</button>
+                <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
             </div>
-            <div>
+            <div class="upgrade-item">
                 <span id="parkRutheCounter">ParkRuthe: 0</span>
-                <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe plaats</button>
+                <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe (0m)</button>
             </div>
-            <div>
+            <div class="upgrade-item">
                 <span id="garageCounter">Garage: 0</span>
-                <button id="buyGarageButton" class="upgradeBtn">Garage plaats</button>
+                <button id="buyGarageButton" class="upgradeBtn">Garage (0m)</button>
             </div>
-            <div>
-                 <span id="eBikeCounter">eBike: 0</span>
-                 <button id="buyEBikeButton" class="upgradeBtn">Ebike plaats</button>
-                 </div>
-            <div id="qte">Press E!</div>
-            <div id="timer">2.00</div>
+            <div class="upgrade-item">
+                <span id="eBikeCounter">e-Bike: 0</span>
+                <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
+            </div>
+
+            <div class="qte-box">
+                <div id="qte">Press E!</div>
+                <div id="timer">2.00</div>
+            </div>
         </div>
     </div>
 </div>

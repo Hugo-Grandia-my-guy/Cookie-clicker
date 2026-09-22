@@ -1,6 +1,6 @@
 class player{
     constructor(){
-        this.meters = 1000000000000;
+        this.meters = 0;
         this.metersPerClick = 1;
     }
 

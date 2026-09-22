@@ -1,6 +1,6 @@
-class player{
-    constructor(){
-        this.meters = 10000;
+class player {
+    constructor() {
+        this.meters = 1000;
         this.metersPerClick = 1;
     }
 
@@ -19,18 +19,19 @@ class Game {
             eBike
         ];
         this.lastUpdate = Date.now();
-        this.currentMultiplier = 1;
+        this.currentMultiplier = '1';
     }
 
     get totalMps() {
         return this.factories.reduce((sum, factory) => sum + factory.totalMps, 0);
     }
 
-    getBuyAmountAndCost(factoryInstance){
+    getBuyAmountAndCost(factoryInstance) {
         let amount = 0;
-        if(this.currentMultiplier === 'max') {
+
+        if (this.currentMultiplier === 'max') {
             amount = factoryInstance.getMaxAffordable(this.player.meters);
-            if(amount === 0) {
+            if (amount === 0) {
                 return {
                     amountToBuy: 0,
                     cost: factoryInstance.currentCost,
@@ -40,10 +41,11 @@ class Game {
         } else {
             amount = parseInt(this.currentMultiplier, 10);
         }
+
         const cost = factoryInstance.getCostFor(amount);
         const nextUnitCost = factoryInstance.currentCost;
 
-        return {amountToBuy: amount, cost: cost, nextUnitCost: nextUnitCost};
+        return { amountToBuy: amount, cost: cost, nextUnitCost: nextUnitCost };
     }
 
     update() {
@@ -64,12 +66,31 @@ class Game {
         const mpsElem = document.getElementById('mpsCounter');
         if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
 
-        //                             ↓↓↓ Set here new factories ↓↓↓
-
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
         this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
+    }
+
+    updateFactoryUI(counterId, buttonId, factoryInstance) {
+        const counterElem = document.getElementById(counterId);
+        const buttonElem = document.getElementById(buttonId);
+
+        if (counterElem) {
+            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
+        }
+
+        if (buttonElem) {
+            const { amountToBuy, cost } = this.getBuyAmountAndCost(factoryInstance);
+
+            if (this.currentMultiplier === '1') {
+                buttonElem.innerText = `Buy x1 (${cost} m)`;
+            } else {
+                buttonElem.innerText = `Buy x${amountToBuy} (${cost} m)`;
+            }
+
+            buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
+        }
     }
 
     setupEventListeners() {
@@ -81,17 +102,15 @@ class Game {
             });
         }
 
-        const multButtons = document.querySelectorAll(`.multBtn`);
-        multButtons.forEach(btn =>{
+        const multButtons = document.querySelectorAll('.multBtn');
+        multButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 multButtons.forEach(b => b.classList.remove('active'));
-                e.target.classList.add(`active`);
-                this.currentMultiplier = e.target.getAttribute(`data-mult`);
+                e.target.classList.add('active');
+                this.currentMultiplier = e.target.getAttribute('data-mult');
                 this.render();
             });
         });
-
-        //      ↓↓↓ And also here ↓↓↓
 
         const purchases = [
             { id: 'buyCursorButton', instance: cursor },
@@ -104,34 +123,15 @@ class Game {
             const btn = document.getElementById(id);
             if (btn) {
                 btn.addEventListener('click', () => {
-                    instance.buy(this.player, 1);
-                    this.render();
+                    const { amountToBuy } = this.getBuyAmountAndCost(instance);
+                    if (amountToBuy > 0) {
+                        instance.buy(this.player, amountToBuy);
+                        this.render();
+                    }
                 });
             }
         });
     }
-
-    updateFactoryUI(counterId, buttonId, factoryInstance) {
-        const counterElem = document.getElementById(counterId);
-        const buttonElem = document.getElementById(buttonId);
-
-        if (counterElem) {
-            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
-        }
-        if (buttonElem) {
-            const {amountToBuy, cost} = this.getBuyAmountAndCost(factoryInstance);
-
-            if (this.currentMultiplier === '1') {
-                buttonElem.innerText = `Buy x1 (${cost} m)`;
-                } else {
-                    buttonElem.innerText =`Buy x${amountToBuy} (${cost}m)`;
-                }
-                buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
-            }
-        }
-    }
-
-
 
     start() {
         this.setupEventListeners();

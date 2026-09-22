@@ -1,5 +1,5 @@
 
-const timeLimit = 2000; // 2 seconds
+const timeLimit = 10000; // 10 seconds
 
 let startTime = performance.now();
 let finished = false;
@@ -27,13 +27,13 @@ document.addEventListener("keydown", function(event) {
 
     if (event.key.toLowerCase() === correctKey) {
         finished = true;
-        document.getElementById("qte").textContent = "✅ Success!";
+        document.getElementById("qte").textContent = "✅ Success!"
     }
 });
 
 updateTimer();
 
-const keys = ["e", "q", "f", "r", "space"];
+const keys = ["e", "q", "f", "r"];
 
 const correctKey = keys[Math.floor(Math.random() * keys.length)];
 
@@ -57,8 +57,8 @@ function startQTE() {
     }
 
     function checkTime() {
-        if (performance.now() - startTime >= timeLimit) {
-            console.log("FAILED!");
+        if (performance.now()- startTime >= timeLimit) {
+            console.log("working");
             cleanup();
         } else {
             requestAnimationFrame(checkTime);

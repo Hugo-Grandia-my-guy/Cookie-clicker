@@ -26,7 +26,7 @@ class Game {
         return this.factories.reduce((sum, factory) => sum + factory.totalMps, 0);
     }
 
-    get buyAmountAndCost(factoryInstance){
+    getBuyAmountAndCost(factoryInstance){
         let amount = 0;
         if(this.currentMultiplier === 'max') {
             amount = factoryInstance.getMaxAffordable(this.player.meters);
@@ -35,9 +35,15 @@ class Game {
                     amountToBuy: 0,
                     cost: factoryInstance.currentCost,
                     nextUnitCost: factoryInstance.currentCost
-                }
+                };
             }
+        } else {
+            amount = parseInt(this.currentMultiplier, 10);
         }
+        const cost = factoryInstance.getCostFor(amount);
+        const nextUnitCost = factoryInstance.currentCost;
+
+        return {amountToBuy: amount, cost: cost, nextUnitCost: nextUnitCost};
     }
 
     update() {
@@ -75,6 +81,16 @@ class Game {
             });
         }
 
+        const multButtons = document.querySelectorAll(`.multBtn`);
+        multButtons.forEach(btn =>{
+            btn.addEventListener('click', (e) => {
+                multButtons.forEach(b => b.classList.remove('active'));
+                e.target.classList.add(`active`);
+                this.currentMultiplier = e.target.getAttribute(`data-mult`);
+                this.render();
+            });
+        });
+
         //      ↓↓↓ And also here ↓↓↓
 
         const purchases = [
@@ -103,9 +119,15 @@ class Game {
             counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
         }
         if (buttonElem) {
-            const cost = factoryInstance.currentCost;
-            buttonElem.innerText = `Buy ${factoryInstance.name} (${cost} m)`;
-            buttonElem.disabled = this.player.meters < cost;
+            const {amountToBuy, cost} = this.getBuyAmountAndCost(factoryInstance);
+
+            if (this.currentMultiplier === '1') {
+                buttonElem.innerText = `Buy x1 (${cost} m)`;
+                } else {
+                    buttonElem.innerText =`Buy x${amountToBuy} (${cost}m)`;
+                }
+                buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
+            }
         }
     }
 

@@ -41,7 +41,11 @@ class factory {
     }
 }
 
-const cursor = new factory("cursor", 10, 0.1);
-const parkRuthe = new factory("parkRuthe", 100, 1);
-const garage = new factory("garage", 5000, 50);
-const eBike = new factory("eBike", 100000, 250);
+//      Add here a new Factories, also DON'T FORGET to add it in app.js
+//          in render() and
+//          in setupEventListener() methods
+
+const cursor = new factory("Cursor", 10, 0.1);
+const parkRuthe = new factory("Park Ruthe", 100, 1);
+const garage = new factory("Garage", 5000, 50);
+const eBike = new factory("e-Bike", 100000, 500);

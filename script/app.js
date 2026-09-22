@@ -43,24 +43,12 @@ class Game {
         const mpsElem = document.getElementById('mpsCounter');
         if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
 
+        //                             ↓↓↓ Set here new factories ↓↓↓
+
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
         this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
-    }
-
-    updateFactoryUI(counterId, buttonId, factoryInstance) {
-        const counterElem = document.getElementById(counterId);
-        const buttonElem = document.getElementById(buttonId);
-
-        if (counterElem) {
-            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
-        }
-        if (buttonElem) {
-            const cost = factoryInstance.currentCost;
-            buttonElem.innerText = `Koop ${factoryInstance.name} (${cost} m)`;
-            buttonElem.disabled = this.player.meters < cost;
-        }
     }
 
     setupEventListeners() {
@@ -71,6 +59,8 @@ class Game {
                 this.render();
             });
         }
+
+        //      ↓↓↓ And also here ↓↓↓
 
         const purchases = [
             { id: 'buyCursorButton', instance: cursor },
@@ -89,6 +79,22 @@ class Game {
             }
         });
     }
+
+    updateFactoryUI(counterId, buttonId, factoryInstance) {
+        const counterElem = document.getElementById(counterId);
+        const buttonElem = document.getElementById(buttonId);
+
+        if (counterElem) {
+            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
+        }
+        if (buttonElem) {
+            const cost = factoryInstance.currentCost;
+            buttonElem.innerText = `Koop ${factoryInstance.name} (${cost} m)`;
+            buttonElem.disabled = this.player.meters < cost;
+        }
+    }
+
+
 
     start() {
         this.setupEventListeners();

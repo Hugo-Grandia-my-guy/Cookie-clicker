@@ -45,7 +45,7 @@ class factory {
 //          in render() and
 //          in setupEventListener() methods
 
-const cursor = new factory("Cursor", 10, 0.1);
-const parkRuthe = new factory("Park Ruthe", 100, 1);
+const cursor = new factory("Cursor", 10, 0.5);
+const parkRuthe = new factory("Park Ruthe", 100, 5);
 const garage = new factory("Garage", 5000, 50);
 const eBike = new factory("e-Bike", 100000, 500);

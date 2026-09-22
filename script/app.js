@@ -98,7 +98,7 @@ class Game {
 
     start() {
         this.setupEventListeners();
-        const TICK_RATE = 100; // Updates DOM 10 times per second for smooth updates
+        const TICK_RATE = 200;
         this.lastUpdate = Date.now();
         setInterval(() => this.update(), TICK_RATE);
     }

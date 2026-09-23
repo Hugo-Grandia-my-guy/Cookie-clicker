@@ -38,6 +38,7 @@ function startQTE() {
         if (event.key.toLowerCase() === correctKey) {
             finished = true;
             document.getElementById("qte").textContent = "✅ Success!";
+
             cleanup();
         }
     }
@@ -51,9 +52,16 @@ function startQTE() {
     updateTimer();
 }
 
-// Start de QTE
-startQTE();
+startQTE()
+function randomQTE() {
+    const delay = Math.floor(Math.random() * (210000 - 115000 + 1)) + 115000;
 
-setInterval(() => {
-    startQTE();
-}, 15000);
+    setTimeout(() => {
+        startQTE();
+        randomQTE();
+    }, delay);
+}
+
+
+// Start de QTE
+randomQTE();

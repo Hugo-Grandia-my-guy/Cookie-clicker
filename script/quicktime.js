@@ -24,7 +24,7 @@ function startQTE() {
 
         if (remaining <= 0) {
             finished = true;
-            document.getElementById("qte").textContent = "❌ Too slow!";
+            document.getElementById("qte").textContent = "🦽 Too slow!";
             cleanup();
             return;
         }
@@ -37,7 +37,7 @@ function startQTE() {
 
         if (event.key.toLowerCase() === correctKey) {
             finished = true;
-            document.getElementById("qte").textContent = "✅ Success!";
+            document.getElementById("qte").textContent = "🚝 Success!";
 
             cleanup();
         }

@@ -12,6 +12,10 @@ class player {
 class Game {
     constructor() {
         this.player = new player();
+
+
+        // Add here new factory          !!!
+
         this.factories = [
             cursor,
             parkRuthe,
@@ -73,6 +77,9 @@ class Game {
         const mpsElem = document.getElementById('mpsCounter');
         if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
 
+
+        // Here also new factory must be added         !!!
+
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
@@ -119,6 +126,9 @@ class Game {
                 this.render();
             });
         });
+
+
+        // And here new factory too                 !!!
 
         const purchases = [
             { id: 'buyCursorButton', instance: cursor },

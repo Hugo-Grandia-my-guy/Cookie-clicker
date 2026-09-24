@@ -1,3 +1,6 @@
+
+// FACTORIES
+
 class factory {
     constructor(name, baseCost, baseMps) {
         this.name = name;
@@ -41,11 +44,41 @@ class factory {
     }
 }
 
-//      Add here a new Factories, also DON'T FORGET to add it in app.js
-//          in render() and
-//          in setupEventListener() methods
+
+//      Add here a new Factories, also DON'T FORGET to add it in app.js    !!!
+//       1.   this.factories [...]
+//       2.   in render(){...} and
+//       3.   in setupEventListener(){...}
 
 const cursor = new factory("👈Cursor", 10, 0.5);
 const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 5);
-const garage = new factory("🔳Garage", 5000, 50);
-const eBike = new factory("🔋e-Bike", 100000, 500);
+const garage = new factory("🔳Garage", 5000, 10);
+const eBike = new factory("🔋e-Bike", 100000, 1000);
+
+
+// UPGRADES
+
+class factoryUpgrade extends factory {
+    constructor(name, baseCost, obtained = false) {
+
+        super(name, baseCost, 0);
+
+        this.obtained = obtained;
+
+    }
+
+    buy(player) {
+        if (this.obtained) return false;
+        const success = super.buy(player, 1);
+
+        if (success) {
+            this.obtained = true;
+            return true;
+        }
+        return false;
+    }
+}
+
+// Add here new upgrades
+
+const cursorUpgrade = new factoryUpgrade(cursorUpgrade, 1000);

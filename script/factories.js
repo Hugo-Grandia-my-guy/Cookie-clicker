@@ -27,6 +27,7 @@ class factory {
         if (meters < b1) return 0;
         const n = Math.log((meters * (q - 1) / b1) + 1) / Math.log(q);
         return Math.floor(n);
+
     }
 
     get totalMps() {

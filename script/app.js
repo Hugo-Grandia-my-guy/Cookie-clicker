@@ -61,7 +61,14 @@ class Game {
 
     render() {
         const meterElem = document.getElementById('meterCounter');
-        if (meterElem) meterElem.innerText = Math.floor(this.player.meters);
+
+        if (meterElem) {
+            if (this.player.meters >= 1000) {
+                meterElem.innerText = (this.player.meters / 1000).toFixed(2) + ' km';
+            } else {
+                meterElem.innerText = Math.floor(this.player.meters) + ' m';
+            }
+        }
 
         const mpsElem = document.getElementById('mpsCounter');
         if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
@@ -71,6 +78,7 @@ class Game {
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
         this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
     }
+
 
     updateFactoryUI(counterId, buttonId, factoryInstance) {
         const counterElem = document.getElementById(counterId);

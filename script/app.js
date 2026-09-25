@@ -21,6 +21,12 @@ class Game {
             parkRuthe,
             garage,
             eBike
+
+        ];
+
+        this.upgrades = [
+          cursorUpgrade1,
+
         ];
         this.lastUpdate = Date.now();
         this.currentMultiplier = '1';
@@ -131,10 +137,17 @@ class Game {
         // And here new factory too                 !!!
 
         const purchases = [
+            // factories
             { id: 'buyCursorButton', instance: cursor },
             { id: 'buyParkRutheButton', instance: parkRuthe },
             { id: 'buyGarageButton', instance: garage },
-            { id: 'buyEBikeButton', instance: eBike }
+            { id: 'buyEBikeButton', instance: eBike },
+
+            //upgrades
+            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade0 },
+            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade1 },
+            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade2 },
+            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade3 }
         ];
 
         purchases.forEach(({ id, instance }) => {

@@ -51,15 +51,15 @@ class factory {
 //       2.   in render(){...} and
 //       3.   in setupEventListener(){...}
 
-const cursor = new factory("👈Cursor", 10, 0.5);
-const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 5);
-const garage = new factory("🔳Garage", 5000, 10);
-const eBike = new factory("🔋e-Bike", 100000, 1000);
+const cursor = new factory("👈Cursor", 5, 1);
+const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 10);
+const garage = new factory("🔳Garage", 5000, 250);
+const eBike = new factory("🔋e-Bike", 100000, 5000);
 
 
 // UPGRADES
 
-class factoryUpgrade extends factory {
+class cursorUpgrade extends factory {
     constructor(name, baseCost, obtained = false) {
 
         super(name, baseCost, 0);
@@ -68,12 +68,13 @@ class factoryUpgrade extends factory {
 
     }
 
-    buy(player) {
+    buy(player, amount = 1) {
         if (this.obtained) return false;
         const success = super.buy(player, 1);
 
         if (success) {
             this.obtained = true;
+            player.metersPerClick *= 2;
             return true;
         }
         return false;
@@ -82,4 +83,7 @@ class factoryUpgrade extends factory {
 
 // Add here new upgrades
 
-const cursorUpgrade = new factoryUpgrade(cursorUpgrade, 1000);
+const cursorUpgrade0 = new cursorUpgrade("cursorUpgrade0", 100, false);
+const cursorUpgrade1 = new cursorUpgrade("cursorUpgrade1", 1000, false);
+const cursorUpgrade2 = new cursorUpgrade("cursorUpgrade2", 10000, false);
+const cursorUpgrade3 = new cursorUpgrade("cursorUpgrade3", 100000, false);

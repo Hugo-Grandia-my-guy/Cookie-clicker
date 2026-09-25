@@ -46,15 +46,24 @@ class Game {
         const mpsElem = document.getElementById('mpsCounter');
         if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
 
+        const mpcElem = document.getElementById('mpcCounter');
+        if (mpcElem) mpcElem.innerText = this.player.metersPerClick.toFixed(1);
+
 
         // Here also new factory must be added         !!!
 
+        //factories
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
         this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
+
+        //upgrades
         this.updateFactoryUI('clickUpgradeCounter', 'buyClickUpgradeButton', clickUpgrade);
         this.updateFactoryUI('cursorUpgradeCounter', 'buyCursorUpgradeButton', cursorUpgrade);
+        this.updateFactoryUI('parkRutheUpgradeCounter', 'buyParkRutheUpgradeButton', parkRutheUpgrade);
+        this.updateFactoryUI('garageUpgradeCounter', 'buyGarageUpgradeButton', garageUpgrade);
+        this.updateFactoryUI('eBikeUpgradeCounter', 'buyEBikeUpgradeButton', eBikeUpgrade);
 
     }
 
@@ -155,7 +164,10 @@ class Game {
 
             //upgrades
             { id: 'buyClickUpgradeButton', instance: clickUpgrade },
-            { id: 'buyCursorUpgradeButton', instance: cursorUpgrade }
+            { id: 'buyCursorUpgradeButton', instance: cursorUpgrade },
+            { id: 'buyParkRutheUpgradeButton', instance: parkRutheUpgrade },
+            { id: 'buyGarageUpgradeButton', instance: garageUpgrade },
+            { id: 'buyEBikeUpgradeButton', instance: eBikeUpgrade },
 
         ];
 

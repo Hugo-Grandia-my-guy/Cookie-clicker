@@ -80,7 +80,7 @@ function startQTE() {
 
 startQTE()
 function randomQTE() {
-    const delay = Math.floor(Math.random() * (11000 - 15000 + 1)) + 15000;
+    const delay = Math.floor(Math.random() * (210000 - 150000 + 1)) + 150000;
 
     setTimeout(() => {
         startQTE();

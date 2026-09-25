@@ -1,6 +1,6 @@
 class player {
     constructor() {
-        this.meters = 1000;
+        this.meters = 0;
         this.metersPerClick = 1;
     }
 
@@ -12,8 +12,6 @@ class player {
 class Game {
     constructor() {
         this.player = new player();
-
-
         // Add here new factory          !!!
 
         this.factories = [
@@ -132,6 +130,7 @@ class Game {
                 this.render();
             });
         });
+
 
 
         // And here new factory too                 !!!

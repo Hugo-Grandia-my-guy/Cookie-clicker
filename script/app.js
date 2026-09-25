@@ -16,24 +16,52 @@ class Game {
 
         // Add here new factory          !!!
 
-        this.factories = [
+        this.purchases = [
+        //Factories
             cursor,
             parkRuthe,
             garage,
-            eBike
+            eBike,
+
+        //Upgrades
+            clickUpgrade,
+            cursorUpgrade,
 
         ];
 
-        this.upgrades = [
-          cursorUpgrade1,
 
-        ];
         this.lastUpdate = Date.now();
         this.currentMultiplier = '1';
     }
 
+    render() {
+        const meterElem = document.getElementById('meterCounter');
+
+        if (meterElem) {
+            if (this.player.meters >= 1000) {
+                meterElem.innerText = (this.player.meters / 1000).toFixed(2) + ' km';
+            } else {
+                meterElem.innerText = Math.floor(this.player.meters) + ' m';
+            }
+        }
+
+        const mpsElem = document.getElementById('mpsCounter');
+        if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
+
+
+        // Here also new factory must be added         !!!
+
+        this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
+        this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
+        this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
+        this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
+        this.updateFactoryUI('clickUpgradeCounter', 'buyClickUpgradeButton', clickUpgrade);
+        this.updateFactoryUI('cursorUpgradeCounter', 'buyCursorUpgradeButton', cursorUpgrade);
+
+    }
+
     get totalMps() {
-        return this.factories.reduce((sum, factory) => sum + factory.totalMps, 0);
+        return this.purchases.reduce((sum, factory) => sum + factory.totalMps, 0);
     }
 
     getBuyAmountAndCost(factoryInstance) {
@@ -69,28 +97,7 @@ class Game {
         this.render();
     }
 
-    render() {
-        const meterElem = document.getElementById('meterCounter');
 
-        if (meterElem) {
-            if (this.player.meters >= 1000) {
-                meterElem.innerText = (this.player.meters / 1000).toFixed(2) + ' km';
-            } else {
-                meterElem.innerText = Math.floor(this.player.meters) + ' m';
-            }
-        }
-
-        const mpsElem = document.getElementById('mpsCounter');
-        if (mpsElem) mpsElem.innerText = this.totalMps.toFixed(1);
-
-
-        // Here also new factory must be added         !!!
-
-        this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
-        this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
-        this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
-        this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
-    }
 
 
     updateFactoryUI(counterId, buttonId, factoryInstance) {
@@ -144,10 +151,8 @@ class Game {
             { id: 'buyEBikeButton', instance: eBike },
 
             //upgrades
-            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade0 },
-            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade1 },
-            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade2 },
-            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade3 }
+            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade0 }
+
         ];
 
         purchases.forEach(({ id, instance }) => {

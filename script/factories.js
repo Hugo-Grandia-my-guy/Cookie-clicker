@@ -48,26 +48,47 @@ class factory {
 
 // UPGRADES
 
-class cursorUpgrade extends factory {
-    constructor(name, baseCost, obtained = false) {
-
+class ClickUpgrade extends factory {
+    constructor(name, baseCost) {
         super(name, baseCost, 0);
 
-        this.obtained = obtained;
-
+        this.costMultiplier = 5;
     }
 
     buy(player, amount = 1) {
-        if (this.obtained) return false;
-        const success = super.buy(player, 1);
+        const success = super.buy(player, amount);
 
         if (success) {
-            this.obtained = true;
-            player.metersPerClick *= 2;
+            for (let i = 0; i < amount; i++) {
+                player.metersPerClick *= 2;
+            }
             return true;
         }
+
         return false;
     }
+}
+
+class factoryUpgrade extends factory {
+    constructor(name, baseCost) {
+        super(name, baseCost, 0);
+
+        this.costMultiplier = 5;
+    }
+
+    buy(player, amount = 1) {
+        const success = super.buy(player, amount);
+
+        if (success) {
+            for (let i = 0; i < amount; i++) {
+                player.metersPerClick *= 2;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
 }
 
 //      Add here a new Factories, also DON'T FORGET to add it in app.js    !!!
@@ -82,8 +103,6 @@ const eBike = new factory("🔋e-Bike", 100000, 5000);
 
 // Add here new upgrades
 
-const cursorUpgrade0 = new cursorUpgrade("cursorUpgrade0", 100, false);
-const cursorUpgrade1 = new cursorUpgrade("cursorUpgrade1", 1000, false);
-const cursorUpgrade2 = new cursorUpgrade("cursorUpgrade2", 10000, false);
-const cursorUpgrade3 = new cursorUpgrade("cursorUpgrade3", 100000, false);
+const clickUpgrade = new ClickUpgrade("clickUpgrade", 10);
 
+const cursorUpgrade = new factoryUpgrade("cursorUpgrade", 10);

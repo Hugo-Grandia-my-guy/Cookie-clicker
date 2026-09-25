@@ -59,7 +59,7 @@ class ClickUpgrade extends factory {
 
         if (success) {
             for (let i = 0; i < amount; i++) {
-                player.metersPerClick *= 2;
+                player.metersPerClick *= 1.5;
             }
             return true;
         }
@@ -95,13 +95,16 @@ class factoryUpgrade extends factory {
 //       2.   in render(){...} and
 //       3.   in setupEventListener(){...}
 
-const cursor = new factory("👈Cursor", 5, 1);
+const cursor = new factory("👈Cursor", 5, 0.5);
 const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 10);
 const garage = new factory("🔳Garage", 5000, 250);
 const eBike = new factory("🔋e-Bike", 100000, 5000);
 
 // Add here new upgrades
 
-const clickUpgrade = new ClickUpgrade("clickUpgrade", 10);
+const clickUpgrade = new ClickUpgrade("Click Upgrade", 10);
 
-const cursorUpgrade = new factoryUpgrade("cursorUpgrade", 10);
+const cursorUpgrade = new factoryUpgrade("Cursor Upgrade", 100);
+const parkRutheUpgrade = new factoryUpgrade("Park Ruthe Upgrade", 1000);
+const garageUpgrade = new factoryUpgrade("Garage Upgrade", 50000);
+const eBikeUpgrade = new factoryUpgrade("e-Bike Upgrade", 1000000);

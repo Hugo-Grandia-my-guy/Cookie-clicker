@@ -17,13 +17,13 @@ class Game {
         // Add here new factory          !!!
 
         this.purchases = [
-        //Factories
+            //Factories
             cursor,
             parkRuthe,
             garage,
             eBike,
 
-        //Upgrades
+            //Upgrades
             clickUpgrade,
             cursorUpgrade,
 
@@ -111,10 +111,14 @@ class Game {
         if (buttonElem) {
             const { amountToBuy, cost } = this.getBuyAmountAndCost(factoryInstance);
 
+            const formattedCost = cost >= 1000
+                ? (cost / 1000).toFixed(2) + ' km'
+                : cost + ' m';
+
             if (this.currentMultiplier === '1') {
-                buttonElem.innerText = `Buy x1 (${cost} m)`;
+                buttonElem.innerText = `Buy x1 (${formattedCost})`;
             } else {
-                buttonElem.innerText = `Buy x${amountToBuy} (${cost} m)`;
+                buttonElem.innerText = `Buy x${amountToBuy} (${formattedCost})`;
             }
 
             buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
@@ -151,7 +155,8 @@ class Game {
             { id: 'buyEBikeButton', instance: eBike },
 
             //upgrades
-            {id: 'buyCursorUpgradeButton', instance: cursorUpgrade0 }
+            { id: 'buyClickUpgradeButton', instance: clickUpgrade },
+            { id: 'buyCursorUpgradeButton', instance: cursorUpgrade }
 
         ];
 

@@ -1,4 +1,3 @@
-
 // FACTORIES
 
 class factory {
@@ -81,7 +80,7 @@ class factoryUpgrade extends factory {
 
         if (success) {
             for (let i = 0; i < amount; i++) {
-                player.metersPerClick *= 2;
+                cursor.baseMps *= 2;
             }
             return true;
         }

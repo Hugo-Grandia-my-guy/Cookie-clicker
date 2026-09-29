@@ -308,3 +308,21 @@ body {
     color: white;
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
 }
+#resetGameButton {
+    background: #8b2c2c;
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: auto;
+    min-width: 150px;
+    height: auto;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+#resetGameButton:hover {
+    background: #c53030;
+}

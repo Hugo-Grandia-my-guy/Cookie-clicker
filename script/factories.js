@@ -104,7 +104,7 @@ const eBike = new factory("🔋e-Bike", 100000, 5000);
 
 const clickUpgrade = new ClickUpgrade("Click Upgrade", 10);
 
-const cursorUpgrade = new factoryUpgrade("Cursor Upgrade", 100);
+const cursorUpgrade = new factoryUpgrade("Cursor Upgrade", 100,);
 const parkRutheUpgrade = new factoryUpgrade("Park Ruthe Upgrade", 1000);
 const garageUpgrade = new factoryUpgrade("Garage Upgrade", 50000);
 const eBikeUpgrade = new factoryUpgrade("e-Bike Upgrade", 1000000);

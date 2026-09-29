@@ -6,6 +6,7 @@ class player {
 
     clickCounter() {
         return this.meters += this.metersPerClick;
+
     }
 }
 
@@ -134,6 +135,7 @@ class Game {
 
     setupEventListeners() {
         const bikeBtn = document.getElementById('bikeButton');
+
         if (bikeBtn) {
             bikeBtn.addEventListener('click', () => {
                 this.player.clickCounter();
@@ -141,20 +143,32 @@ class Game {
             });
         }
 
+        // RESET KNOP
+        const resetButton = document.getElementById("resetGameButton");
+
+        if (resetButton) {
+            resetButton.addEventListener("click", () => {
+                this.resetGame();
+            });
+        }
+
+        // MULTIPLIER BUTTONS
         const multButtons = document.querySelectorAll('.multBtn');
+
         multButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 multButtons.forEach(b => b.classList.remove('active'));
+
                 e.target.classList.add('active');
-                this.currentMultiplier = e.target.getAttribute('data-mult');
+
+                this.currentMultiplier =
+                    e.target.getAttribute('data-mult');
+
                 this.render();
             });
         });
 
-
-
-        // And here new factory too                 !!!
-
+        // PURCHASES
         const purchases = [
             // factories
             { id: 'buyCursorButton', instance: cursor },
@@ -162,20 +176,22 @@ class Game {
             { id: 'buyGarageButton', instance: garage },
             { id: 'buyEBikeButton', instance: eBike },
 
-            //upgrades
+            // upgrades
             { id: 'buyClickUpgradeButton', instance: clickUpgrade },
             { id: 'buyCursorUpgradeButton', instance: cursorUpgrade },
             { id: 'buyParkRutheUpgradeButton', instance: parkRutheUpgrade },
             { id: 'buyGarageUpgradeButton', instance: garageUpgrade },
-            { id: 'buyEBikeUpgradeButton', instance: eBikeUpgrade },
-
+            { id: 'buyEBikeUpgradeButton', instance: eBikeUpgrade }
         ];
 
         purchases.forEach(({ id, instance }) => {
             const btn = document.getElementById(id);
+
             if (btn) {
                 btn.addEventListener('click', () => {
-                    const { amountToBuy } = this.getBuyAmountAndCost(instance);
+                    const { amountToBuy } =
+                        this.getBuyAmountAndCost(instance);
+
                     if (amountToBuy > 0) {
                         instance.buy(this.player, amountToBuy);
                         this.render();
@@ -186,11 +202,116 @@ class Game {
     }
 
     start() {
+        this.loadGame();
         this.setupEventListeners();
+
         const TICK_RATE = 200;
         this.lastUpdate = Date.now();
+
         setInterval(() => this.update(), TICK_RATE);
+
+        // Iedere seconde opslaan
+        setInterval(() => this.saveGame(), 1000);
     }
+
+
+    saveGame() {
+        const saveData = {
+            player: {
+                meters: this.player.meters,
+                metersPerClick: this.player.metersPerClick
+            },
+
+            factories: {
+                cursor: cursor.count,
+                parkRuthe: parkRuthe.count,
+                garage: garage.count,
+                eBike: eBike.count
+            },
+
+            upgrades: {
+                clickUpgrade: clickUpgrade.count,
+                cursorUpgrade: cursorUpgrade.count,
+                parkRutheUpgrade: parkRutheUpgrade.count,
+                garageUpgrade: garageUpgrade.count,
+                eBikeUpgrade: eBikeUpgrade.count
+            },
+
+            currentMultiplier: this.currentMultiplier
+        };
+
+        localStorage.setItem("walkingGameSave", JSON.stringify(saveData));
+    }
+    loadGame() {
+        const savedGame = localStorage.getItem("walkingGameSave");
+
+        // Als er nog geen save bestaat
+        if (!savedGame) {
+            return;
+        }
+
+        const saveData = JSON.parse(savedGame);
+
+        // Player herstellen
+        this.player.meters = saveData.player.meters;
+        this.player.metersPerClick = saveData.player.metersPerClick;
+
+        // Factories herstellen
+        cursor.count = saveData.factories.cursor;
+        parkRuthe.count = saveData.factories.parkRuthe;
+        garage.count = saveData.factories.garage;
+        eBike.count = saveData.factories.eBike;
+
+        // Upgrades herstellen
+        clickUpgrade.count = saveData.upgrades.clickUpgrade;
+        cursorUpgrade.count = saveData.upgrades.cursorUpgrade;
+        parkRutheUpgrade.count = saveData.upgrades.parkRutheUpgrade;
+        garageUpgrade.count = saveData.upgrades.garageUpgrade;
+        eBikeUpgrade.count = saveData.upgrades.eBikeUpgrade;
+
+        // Multiplier herstellen
+        this.currentMultiplier = saveData.currentMultiplier || '1';
+
+        this.render();
+    }
+    resetGame() {
+        const confirmed = confirm(
+            "Weet je zeker dat je alle voortgang wilt verwijderen?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        // Save verwijderen
+        localStorage.removeItem("walkingGameSave");
+
+        // Player resetten
+        this.player.meters = 0;
+        this.player.metersPerClick = 1;
+
+        // Factories resetten
+        cursor.count = 0;
+        parkRuthe.count = 0;
+        garage.count = 0;
+        eBike.count = 0;
+
+        // Upgrades resetten
+        clickUpgrade.count = 0;
+        cursorUpgrade.count = 0;
+        parkRutheUpgrade.count = 0;
+        garageUpgrade.count = 0;
+        eBikeUpgrade.count = 0;
+
+        // Multiplier resetten
+        this.currentMultiplier = "1";
+
+        // Scherm vernieuwen
+        this.render();
+    }
+
+
+
 }
 
 const game = new Game();

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +9,6 @@
 </head>
 
 <body>
-
 <div id="app">
     <div id="topbar">
         <h2>Meters per click: <span id="mpcCounter">1</span></h2>
@@ -33,9 +31,18 @@
         </div>
 
         <div id="upgradesWindow">
+            <div id="multiplierBar">
+                <span class="mult-title">Buy mode:</span>
+                <div class="mult-group">
+                    <button class="multBtn active" data-mult="1">x1</button>
+                    <button class="multBtn" data-mult="10">x10</button>
+                    <button class="multBtn" data-mult="100">x100</button>
+                    <button class="multBtn" data-mult="max">Max</button>
+                </div>
+            </div>
             <div class="upgrade-item">
                 <span id="clickUpgradeCounter">Click Upgrade: 0</span>
-                    <button id="buyClickUpgradeButton" class="upgradeBtn">Click Upgrade</button>
+                <button id="buyClickUpgradeButton" class="upgradeBtn">Click Upgrade</button>
             </div>
             <div class="upgrade-item">
                 <span id="cursorUpgradeCounter">Cursor Upgrade: 0</span>
@@ -53,40 +60,33 @@
                 <span id="eBikeUpgradeCounter">e-Bike Upgrade: 0</span>
                 <button id="buyEBikeUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
             </div>
+        </div>
 
-            <div id="multiplierBar">
-                <span class="mult-title">Buy mode:</span>
-                <div class="mult-group">
-                    <button class="multBtn active" data-mult="1">x1</button>
-                    <button class="multBtn" data-mult="10">x10</button>
-                    <button class="multBtn" data-mult="100">x100</button>
-                    <button class="multBtn" data-mult="max">Max</button>
+        <div id="upgradesWindow_passive">
+                <div class="upgrade-item">
+                    <span id="cursorCounter">Cursor: 0</span>
+                    <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
                 </div>
-            </div>
+                <div class="upgrade-item">
+                    <span id="parkRutheCounter">ParkRuthe: 0</span>
+                    <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe (0m)</button>
+                </div>
+                <div class="upgrade-item">
+                    <span id="garageCounter">Garage: 0</span>
+                    <button id="buyGarageButton" class="upgradeBtn">Garage (0m)</button>
+                </div>
+                <div class="upgrade-item">
+                    <span id="eBikeCounter">e-Bike: 0</span>
+                    <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
+                </div>
 
-            <div class="upgrade-item">
-                <span id="cursorCounter">Cursor: 0</span>
-                <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="parkRutheCounter">ParkRuthe: 0</span>
-                <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe (0m)</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="garageCounter">Garage: 0</span>
-                <button id="buyGarageButton" class="upgradeBtn">Garage (0m)</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="eBikeCounter">e-Bike: 0</span>
-                <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
-            </div>
 
-        <div>
-    </div>
+        </div>
+
+            <script src="script/factories.js"></script>
+            <script src="script/app.js"></script>
+            <script src="script/quicktime.js"></script>
+
+        </div>
 </div>
-
-<script src="script/factories.js"></script>
-<script src="script/app.js"></script>
-<script src="script/quicktime.js"></script>
 </body>
-</html>

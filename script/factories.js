@@ -8,7 +8,7 @@ class factory {
         this.count = 0;
         this.costMultiplier = 1.15;
     }
-
+    //cost van factory
     get currentCost() {
         return this.getCostFor(1);
     }
@@ -19,7 +19,7 @@ class factory {
         const totalCost = firstCost * (Math.pow(this.costMultiplier, amount) - 1) / (this.costMultiplier - 1);
         return Math.floor(totalCost);
     }
-
+ // geeft aan als je button maximaal klikt en berekent de kosten nu//
     getMaxAffordable(meters) {
         const q = this.costMultiplier;
         const b1 = this.baseCost * Math.pow(q, this.count);
@@ -32,7 +32,7 @@ class factory {
     get totalMps() {
         return this.count * this.baseMps;
     }
-
+    //kijkt of je kan kopen//
     buy(player, amount = 1) {
         const cost = this.getCostFor(amount);
         if (player.meters >= cost && amount > 0) {

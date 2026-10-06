@@ -214,7 +214,7 @@ class Game {
         setInterval(() => this.saveGame(), 1000);
     }
 
-
+    //opslaan van game//
     saveGame() {
         const saveData = {
             player: {
@@ -242,6 +242,7 @@ class Game {
 
         localStorage.setItem("walkingGameSave", JSON.stringify(saveData));
     }
+    //load
     loadGame() {
         const savedGame = localStorage.getItem("walkingGameSave");
 
@@ -274,6 +275,7 @@ class Game {
 
         this.render();
     }
+    // set game to begin//
     resetGame() {
         const confirmed = confirm(
             "Weet je zeker dat je alle voortgang wilt verwijderen?"

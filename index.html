@@ -17,9 +17,7 @@
             <div id="qte">Press E!</div>
             <div id="timer">10.00</div>
         </div>
-        <button id="resetGameButton">
-            🗑️ Reset Game
-        </button>
+
     </div>
 
     <div id="game">
@@ -31,15 +29,7 @@
         </div>
 
         <div id="upgradesWindow">
-            <div id="multiplierBar">
-                <span class="mult-title">Buy mode:</span>
-                <div class="mult-group">
-                    <button class="multBtn active" data-mult="1">x1</button>
-                    <button class="multBtn" data-mult="10">x10</button>
-                    <button class="multBtn" data-mult="100">x100</button>
-                    <button class="multBtn" data-mult="max">Max</button>
-                </div>
-            </div>
+            <div id="informationbar">Upgrading yourself and the Factories:</div>
             <div class="upgrade-item">
                 <span id="clickUpgradeCounter">Click Upgrade: 0</span>
                 <button id="buyClickUpgradeButton" class="upgradeBtn">Click Upgrade</button>
@@ -63,7 +53,16 @@
         </div>
 
         <div id="upgradesWindow_passive">
-                <div class="upgrade-item">
+            <div id="multiplierBar">
+                <span class="mult-title">Buy mode:</span>
+                <div class="mult-group">
+                    <button class="multBtn active" data-mult="1">x1</button>
+                    <button class="multBtn" data-mult="10">x10</button>
+                    <button class="multBtn" data-mult="100">x100</button>
+                    <button class="multBtn" data-mult="max">Max</button>
+                </div>
+            </div>
+            <div class="upgrade-item">
                     <span id="cursorCounter">Cursor: 0</span>
                     <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
                 </div>
@@ -79,14 +78,16 @@
                     <span id="eBikeCounter">e-Bike: 0</span>
                     <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
                 </div>
-
-
         </div>
-
-            <script src="script/factories.js"></script>
-            <script src="script/app.js"></script>
-            <script src="script/quicktime.js"></script>
-
         </div>
+            <div id="bottom_bar">
+             <button id="resetGameButton">
+                  🗑️ Reset Game
+             </button>
+         </div>
+
+    <script src="script/factories.js"></script>
+    <script src="script/app.js"></script>
+    <script src="script/quicktime.js"></script>
 </div>
 </body>

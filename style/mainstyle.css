@@ -257,6 +257,16 @@ body {
     background: var(--card-border);
     border-radius: 3px;
 }
+#informationbar::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 3px;
+}
+#informationbar::-webkit-scrollbar {
+    width: 6px;
+}
+#informationbar::-webkit-scrollbar-track {
+    background: transparent;
+}
 
 #multiplierBar {
     display: flex;
@@ -325,4 +335,16 @@ body {
 
 #resetGameButton:hover {
     background: #c53030;
+}
+#informationbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 1.2em;
 }

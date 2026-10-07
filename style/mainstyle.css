@@ -348,3 +348,130 @@ body {
     color: var(--text-secondary);
     font-size: 1.2em;
 }
+/* =========================================
+   THEME SYSTEM
+========================================= */
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+
+    transition:
+            background-color 0.6s ease,
+            color 0.6s ease;
+}
+
+
+/* =========================================
+   GROEN
+   0 - 4.999 meter
+========================================= */
+
+body.theme-green {
+    --bg-color: #0b2e13;
+    --card-bg: #005306;
+    --card-border: #6ca2ef;
+
+    --accent-green: #10b981;
+    --accent-green-hover: #059669;
+
+    --accent-blue: #6ad573;
+    --accent-blue-hover: #aff8b2;
+
+    --accent-qte: #f59e0b;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #b7c9bd;
+}
+
+
+/* =========================================
+   BLAUW
+   5.000 - 9.999 meter
+========================================= */
+
+body.theme-blue {
+    --bg-color: #071a2e;
+    --card-bg: #0b3154;
+    --card-border: #3b82f6;
+
+    --accent-green: #22c55e;
+    --accent-green-hover: #16a34a;
+
+    --accent-blue: #3b82f6;
+    --accent-blue-hover: #60a5fa;
+
+    --accent-qte: #f59e0b;
+
+    --text-primary: #eff6ff;
+    --text-secondary: #a8c7e8;
+}
+
+
+/* =========================================
+   PAARS
+   10.000 - 24.999 meter
+========================================= */
+
+body.theme-purple {
+    --bg-color: #1d0b2e;
+    --card-bg: #35134f;
+    --card-border: #a855f7;
+
+    --accent-green: #c084fc;
+    --accent-green-hover: #a855f7;
+
+    --accent-blue: #a855f7;
+    --accent-blue-hover: #c084fc;
+
+    --accent-qte: #fbbf24;
+
+    --text-primary: #faf5ff;
+    --text-secondary: #d8b4fe;
+}
+
+
+/* =========================================
+   ORANJE
+   25.000 - 49.999 meter
+========================================= */
+
+body.theme-orange {
+    --bg-color: #321707;
+    --card-bg: #5a2608;
+    --card-border: #f97316;
+
+    --accent-green: #fb923c;
+    --accent-green-hover: #f97316;
+
+    --accent-blue: #f97316;
+    --accent-blue-hover: #fb923c;
+
+    --accent-qte: #facc15;
+
+    --text-primary: #fff7ed;
+    --text-secondary: #fed7aa;
+}
+
+
+/* =========================================
+   GOUD
+   50.000+ meter
+========================================= */
+
+body.theme-gold {
+    --bg-color: #302507;
+    --card-bg: #5c4809;
+    --card-border: #facc15;
+
+    --accent-green: #facc15;
+    --accent-green-hover: #eab308;
+
+    --accent-blue: #eab308;
+    --accent-blue-hover: #facc15;
+
+    --accent-qte: #fde047;
+
+    --text-primary: #fffbea;
+    --text-secondary: #fef08a;
+}

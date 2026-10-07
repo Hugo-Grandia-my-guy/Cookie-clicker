@@ -32,7 +32,32 @@ class Game {
         this.lastUpdate = Date.now();
         this.currentMultiplier = '1';
     }
+        updateTheme() {
+            const meters = this.player.meters;
+            const body = document.body;
 
+            // Eerst alle thema's verwijderen
+            body.classList.remove(
+                'theme-green',
+                'theme-blue',
+                'theme-purple',
+                'theme-red'
+            );
+
+            if (meters >= 50000) {
+                body.classList.add('theme-gold');
+            } else if (meters >= 25000) {
+                body.classList.add('theme-orange');
+            } else if (meters >= 10000) {
+                body.classList.add('theme-red');
+            } else if (meters >= 5000) {
+                body.classList.add('theme-purple');
+            } else if (meters < 100) {
+                body.classList.add('theme-green');
+            } else {
+                body.classList.add('theme-blue');
+            }
+        }
     render() {
         const meterElem = document.getElementById('meterCounter');
 
@@ -66,6 +91,7 @@ class Game {
         this.updateFactoryUI('garageUpgradeCounter', 'buyGarageUpgradeButton', garageUpgrade);
         this.updateFactoryUI('eBikeUpgradeCounter', 'buyEBikeUpgradeButton', eBikeUpgrade);
 
+        this.updateTheme();
     }
 
     get totalMps() {

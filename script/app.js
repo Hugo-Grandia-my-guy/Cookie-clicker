@@ -36,13 +36,8 @@ class Game {
             const meters = this.player.meters;
             const body = document.body;
 
-            // Eerst alle thema's verwijderen
-            body.classList.remove(
-                'theme-green',
-                'theme-blue',
-                'theme-purple',
-                'theme-red'
-            );
+            // alle thema's
+
 
             if (meters >= 50000) {
                 body.classList.add('theme-gold');
@@ -144,7 +139,7 @@ class Game {
 
         if (buttonElem) {
             const { amountToBuy, cost } = this.getBuyAmountAndCost(factoryInstance);
-
+            //km check
             const formattedCost = cost >= 1000
                 ? (cost / 1000).toFixed(2) + ' km'
                 : cost + ' m';

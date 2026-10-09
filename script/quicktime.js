@@ -1,7 +1,7 @@
 
 
 
-
+//which key to press
 function startQTE() {
     const keys = ["f", "i", "e", "t", "s"];
     const correctKey = keys[Math.floor(Math.random() * keys.length)];
@@ -13,7 +13,7 @@ function startQTE() {
 
     document.getElementById("qte").textContent =
         `Press ${correctKey.toUpperCase()}!`;
-
+//check timing
     function updateTimer() {
         if (finished) return;
 
@@ -77,7 +77,7 @@ function startQTE() {
 
     updateTimer();
 }
-
+//random timing for unexpected effect//
 startQTE()
 function randomQTE() {
     const delay = Math.floor(Math.random() * (210000 - 150000 + 1)) + 150000;

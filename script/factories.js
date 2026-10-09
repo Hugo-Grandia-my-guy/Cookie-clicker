@@ -67,7 +67,7 @@ class ClickUpgrade extends factory {
         return false;
     }
 }
-
+//inheritance
 class factoryUpgrade extends factory {
     constructor(name, baseCost) {
         super(name, baseCost, 0);
@@ -100,7 +100,7 @@ const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 10);
 const garage = new factory("🔳Garage", 5000, 250);
 const eBike = new factory("🔋e-Bike", 100000, 5000);
 
-// Add here new upgrades
+// Add here new upgrades for factory
 
 const clickUpgrade = new ClickUpgrade("Click Upgrade", 10);
 

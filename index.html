@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,46 +13,19 @@
     <div id="topbar">
         <h2>Meters per click: <span id="mpcCounter">1</span></h2>
         <h2>Meters per second: <span id="mpsCounter">0.0</span></h2>
-        <div class="qte-box">
-            <div id="qte">Press E!</div>
-            <div id="timer">10.00</div>
-        </div>
-
+        <div id="buffNotice"></div>
     </div>
 
     <div id="game">
         <div id="clickWindow">
             <h1>Meters: <span id="meterCounter">0</span></h1>
             <div id="bike">
-                <button id="bikeButton">🚲</button>
+                <button id="bikeButton">🦽</button>
             </div>
         </div>
 
-        <div id="upgradesWindow">
-            <div id="informationbar">Upgrading yourself and the Factories:</div>
-            <div class="upgrade-item">
-                <span id="clickUpgradeCounter">Click Upgrade: 0</span>
-                <button id="buyClickUpgradeButton" class="upgradeBtn">Click Upgrade</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="cursorUpgradeCounter">Cursor Upgrade: 0</span>
-                <button id="buyCursorUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="parkRutheUpgradeCounter">Park Ruthe Upgrade: 0</span>
-                <button id="buyParkRutheUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="garageUpgradeCounter">Garage Upgrade: 0</span>
-                <button id="buyGarageUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
-            </div>
-            <div class="upgrade-item">
-                <span id="eBikeUpgradeCounter">e-Bike Upgrade: 0</span>
-                <button id="buyEBikeUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
-            </div>
-        </div>
-
-        <div id="upgradesWindow_passive">
+        <div id="rightPanel">
+            <!-- Buy mode window -->
             <div id="multiplierBar">
                 <span class="mult-title">Buy mode:</span>
                 <div class="mult-group">
@@ -62,32 +35,65 @@
                     <button class="multBtn" data-mult="max">Max</button>
                 </div>
             </div>
-            <div class="upgrade-item">
-                    <span id="cursorCounter">Cursor: 0</span>
-                    <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
+
+            <div id="upgradesContainer">
+
+                <!-- amplificators upgrade window -->
+                <div id="upgradesWindow">
+                    <div class="section-title">Upgrades</div>
+                    <div class="upgrade-item">
+                        <span id="clickUpgradeCounter">Click Upgrade: 0</span>
+                        <button id="buyClickUpgradeButton" class="upgradeBtn">Click Upgrade</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="cursorUpgradeCounter">Cursor Upgrade: 0</span>
+                        <button id="buyCursorUpgradeButton" class="upgradeBtn">Cursor Upgrade</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="parkRutheUpgradeCounter">Park Ruthe Upgrade: 0</span>
+                        <button id="buyParkRutheUpgradeButton" class="upgradeBtn">Park Ruthe Upgrade</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="garageUpgradeCounter">Garage Upgrade: 0</span>
+                        <button id="buyGarageUpgradeButton" class="upgradeBtn">Garage Upgrade</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="eBikeUpgradeCounter">e-Bike Upgrade: 0</span>
+                        <button id="buyEBikeUpgradeButton" class="upgradeBtn">e-Bike Upgrade</button>
+                    </div>
                 </div>
-                <div class="upgrade-item">
-                    <span id="parkRutheCounter">ParkRuthe: 0</span>
-                    <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe (0m)</button>
+
+                <!-- factories upgrade window -->
+                <div id="upgradesWindow_factories">
+                    <div class="section-title">Factories</div>
+                    <div class="upgrade-item">
+                        <span id="cursorCounter">Cursor: 0</span>
+                        <button id="buyCursorButton" class="upgradeBtn">Cursor (0m)</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="parkRutheCounter">ParkRuthe: 0</span>
+                        <button id="buyParkRutheButton" class="upgradeBtn">ParkRuthe (0m)</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="garageCounter">Garage: 0</span>
+                        <button id="buyGarageButton" class="upgradeBtn">Garage (0m)</button>
+                    </div>
+                    <div class="upgrade-item">
+                        <span id="eBikeCounter">e-Bike: 0</span>
+                        <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
+                    </div>
                 </div>
-                <div class="upgrade-item">
-                    <span id="garageCounter">Garage: 0</span>
-                    <button id="buyGarageButton" class="upgradeBtn">Garage (0m)</button>
-                </div>
-                <div class="upgrade-item">
-                    <span id="eBikeCounter">e-Bike: 0</span>
-                    <button id="buyEBikeButton" class="upgradeBtn">Ebike (0m)</button>
-                </div>
+            </div>
         </div>
-        </div>
-            <div id="bottom_bar">
-             <button id="resetGameButton">
-                  🗑️ Reset Game
-             </button>
-         </div>
+    </div>
+
+    <div id="bottom_bar">
+        <button id="resetGameButton">🗑️ Reset Game</button>
+    </div>
 
     <script src="script/factories.js"></script>
     <script src="script/app.js"></script>
     <script src="script/quicktime.js"></script>
 </div>
 </body>
+</html>

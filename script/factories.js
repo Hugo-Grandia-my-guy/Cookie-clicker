@@ -91,9 +91,7 @@ class factoryUpgrade extends factory {
 }
 
 //      Add here a new Factories, also DON'T FORGET to add it in app.js    !!!
-//       1.   this.factories [...]
-//       2.   in render(){...} and
-//       3.   in setupEventListener(){...}
+
 
 const cursor = new factory("👈Cursor", 5, 0.5);
 const parkRuthe = new factory("🚴‍♀️Park Ruthe", 100, 10);

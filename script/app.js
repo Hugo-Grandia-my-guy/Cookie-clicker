@@ -52,31 +52,47 @@ class Game {
         }
     }
 
+    updateMultiplierUI() {
+        const multButtons = document.querySelectorAll('.multBtn');
+        multButtons.forEach(btn => {
+            const attrValue = btn.getAttribute('data-mult');
+            if (attrValue === this.currentMultiplier) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
     render() {
         const meterElem = document.getElementById('meterCounter');
-
         if (meterElem) {
-            if (this.player.meters >= 1000) {
-                meterElem.innerText = (this.player.meters / 1000).toFixed(2) + ' km';
-            } else {
-                meterElem.innerText = Math.floor(this.player.meters) + ' m';
-            }
+            // Format total meters using the Formatter utility
+            meterElem.innerText = Formatter.format(this.player.meters, 'm');
         }
 
         const mpsElem = document.getElementById('mpsCounter');
-        if (mpsElem) mpsElem.innerText = (this.totalMps * this.player.buffMultiplier).toFixed(1);
+        if (mpsElem) {
+            // Format meters per second including active QTE buffs
+            mpsElem.innerText = Formatter.format(this.totalMps * this.player.buffMultiplier);
+        }
 
         const mpcElem = document.getElementById('mpcCounter');
-        if (mpcElem) mpcElem.innerText = (this.player.metersPerClick * this.player.buffMultiplier).toFixed(1);
+        if (mpcElem) {
+            // Format meters per click including active QTE buffs
+            mpcElem.innerText = Formatter.format(this.player.metersPerClick * this.player.buffMultiplier);
+        }
 
 
-        // set new upgrades here
+        // Set here new upgrades / factories
 
+        // Render factory levels and costs
         this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
         this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
         this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
         this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
 
+        // Render upgrade levels and costs
         this.updateFactoryUI('clickUpgradeCounter', 'buyClickUpgradeButton', clickUpgrade);
         this.updateFactoryUI('cursorUpgradeCounter', 'buyCursorUpgradeButton', cursorUpgrade);
         this.updateFactoryUI('parkRutheUpgradeCounter', 'buyParkRutheUpgradeButton', parkRutheUpgrade);
@@ -128,14 +144,15 @@ class Game {
         const buttonElem = document.getElementById(buttonId);
 
         if (counterElem) {
-            counterElem.innerText = `${factoryInstance.name}: ${factoryInstance.count}`;
+            // Format count value
+            counterElem.innerText = `${factoryInstance.name}: ${Formatter.format(factoryInstance.count)}`;
         }
 
         if (buttonElem) {
             const { amountToBuy, cost } = this.getBuyAmountAndCost(factoryInstance);
-            const formattedCost = cost >= 1000
-                ? (cost / 1000).toFixed(2) + ' km'
-                : cost + ' m';
+
+            // Format upgrade cost with meters unit
+            const formattedCost = Formatter.format(cost, 'm');
 
             if (this.currentMultiplier === '1') {
                 buttonElem.innerText = `Buy x1 (${formattedCost})`;
@@ -268,6 +285,8 @@ class Game {
         eBikeUpgrade.count = saveData.upgrades.eBikeUpgrade;
 
         this.currentMultiplier = saveData.currentMultiplier || '1';
+        this.updateMultiplierUI();
+
         this.render();
     }
 
@@ -280,7 +299,7 @@ class Game {
         this.player.metersPerClick = 1;
 
 
-        //and finally here new upgradws
+        //and finally here new upgrades
 
         cursor.count = 0;
         parkRuthe.count = 0;
@@ -294,6 +313,8 @@ class Game {
         eBikeUpgrade.count = 0;
 
         this.currentMultiplier = "1";
+        this.updateMultiplierUI();
+
         this.render();
     }
 }

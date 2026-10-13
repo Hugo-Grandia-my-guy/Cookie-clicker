@@ -57,7 +57,7 @@ function startQTE() {
 
         if (remaining <= 0) {
             finished = true;
-            cleanup(" Too slow!");
+            cleanup("🦽 Too slow!");
             return;
         }
 

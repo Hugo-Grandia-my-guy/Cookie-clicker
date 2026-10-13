@@ -171,7 +171,7 @@ class Game {
     }
 
     start() {
-        this.initUI(); // Genereer eerst de HTML elementen dynamisch
+        this.initUI(); // Genereer eerst de HTML-elementen dynamisch
         this.loadGame();
         this.setupEventListeners();
 

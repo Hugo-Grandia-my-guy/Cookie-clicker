@@ -19,15 +19,6 @@ class factory {
         const totalCost = firstCost * (Math.pow(this.costMultiplier, amount) - 1) / (this.costMultiplier - 1);
         return Math.floor(totalCost);
     }
- // geeft aan als je button maximaal klikt en berekent de kosten nu//
-    getMaxAffordable(meters) {
-        const q = this.costMultiplier;
-        const b1 = this.baseCost * Math.pow(q, this.count);
-        if (meters < b1) return 0;
-        const n = Math.log((meters * (q - 1) / b1) + 1) / Math.log(q);
-        return Math.floor(n);
-
-    }
 
     get totalMps() {
         return this.count * this.baseMps;

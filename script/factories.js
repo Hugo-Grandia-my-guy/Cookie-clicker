@@ -44,29 +44,6 @@ class factory {
     }
 }
 
-
-// UPGRADES
-
-class ClickUpgrade extends factory {
-    constructor(name, baseCost) {
-        super(name, baseCost, 0);
-
-        this.costMultiplier = 5;
-    }
-
-    buy(player, amount = 1) {
-        const success = super.buy(player, amount);
-
-        if (success) {
-            for (let i = 0; i < amount; i++) {
-                player.metersPerClick *= 1.5;
-            }
-            return true;
-        }
-
-        return false;
-    }
-}
 //inheritance
 class factoryUpgrade extends factory {
     constructor(name, baseCost) {
@@ -133,7 +110,7 @@ class PurchasableItem {
 
             for (let i = 0; i < amount; i++) {
                 if (this.type === 'clickUpgrade') {
-                    player.metersPerClick *= 1.5;
+                    player.metersPerClick *= 1.75;
                 } else if (this.type === 'factoryUpgrade' && this.target) {
                     this.target.baseMps *= 2;
                 }
@@ -153,15 +130,18 @@ const cursor = new PurchasableItem('cursor', '👈Cursor', 5, 0.5, 'factory');
 const parkRuthe = new PurchasableItem('parkRuthe', '🚴‍♀️Park Ruthe', 100, 10, 'factory');
 const garage = new PurchasableItem('garage', '🔳Garage', 5000, 250, 'factory');
 const eBike = new PurchasableItem('eBike', '🔋e-Bike', 100000, 5000, 'factory');
+const fietsMaker = new PurchasableItem('fietsMaker', '🧑‍🔧Fiets Maker', 1000000, 10000, 'factory');
 
 const clickUpgrade = new PurchasableItem('clickUpgrade', 'Click Upgrade', 10, 0, 'clickUpgrade');
 const cursorUpgrade = new PurchasableItem('cursorUpgrade', 'Cursor Upgrade', 100, 0, 'factoryUpgrade', cursor);
 const parkRutheUpgrade = new PurchasableItem('parkRutheUpgrade', 'Park Ruthe Upgrade', 1000, 0, 'factoryUpgrade', parkRuthe);
 const garageUpgrade = new PurchasableItem('garageUpgrade', 'Garage Upgrade', 50000, 0, 'factoryUpgrade', garage);
 const eBikeUpgrade = new PurchasableItem('eBikeUpgrade', 'e-Bike Upgrade', 1000000, 0, 'factoryUpgrade', eBike);
+const fietsMakerUpgrade = new PurchasableItem('fietsMakerUpgrade', 'Fiets maker Upgrade', 10000000, 0, 'factoryUpgrade', fietsMaker);
 
 // Centrale lijst die automatisch overal doorheen loopt
 const purchases = [
-    cursor, parkRuthe, garage, eBike,
-    clickUpgrade, cursorUpgrade, parkRutheUpgrade, garageUpgrade, eBikeUpgrade
+    cursor, parkRuthe, garage, eBike, fietsMaker,
+
+    clickUpgrade, cursorUpgrade, parkRutheUpgrade, garageUpgrade, eBikeUpgrade,fietsMakerUpgrade,
 ];

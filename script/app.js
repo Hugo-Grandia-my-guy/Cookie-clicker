@@ -13,50 +13,50 @@ class player {
 class Game {
     constructor() {
         this.player = new player();
-
-        this.purchases = [
-            //factories
-            cursor,
-            parkRuthe,
-            garage,
-            eBike,
-
-            //cursor & factories upgrades
-            clickUpgrade,
-            cursorUpgrade,
-            parkRutheUpgrade,
-            garageUpgrade,
-            eBikeUpgrade
-        ];
-
+        this.purchases = purchases; // Geïmporteerd uit factories.js
         this.lastUpdate = Date.now();
         this.currentMultiplier = '1';
+    }
+
+    initUI() {
+        const upgradesWindow = document.getElementById('upgradesList');
+        const factoriesWindow = document.getElementById('factoriesList');
+
+        upgradesWindow.innerHTML = '';
+        factoriesWindow.innerHTML = '';
+
+        this.purchases.forEach(item => {
+            const itemHTML = `
+                <div class="upgrade-item">
+                    <span id="${item.id}Counter">${item.name}: 0</span>
+                    <button id="buy${item.id.charAt(0).toUpperCase() + item.id.slice(1)}Button" class="upgradeBtn">${item.name}</button>
+                </div>
+            `;
+
+            if (item.type === 'factory') {
+                factoriesWindow.innerHTML += itemHTML;
+            } else {
+                upgradesWindow.innerHTML += itemHTML;
+            }
+        });
     }
 
     updateTheme() {
         const meters = this.player.meters;
         const body = document.body;
-
         body.classList.remove('theme-green', 'theme-blue', 'theme-purple', 'theme-orange', 'theme-gold');
 
-        if (meters >= 50000) {
-            body.classList.add('theme-gold');
-        } else if (meters >= 25000) {
-            body.classList.add('theme-orange');
-        } else if (meters >= 10000) {
-            body.classList.add('theme-purple');
-        } else if (meters >= 5000) {
-            body.classList.add('theme-blue');
-        } else {
-            body.classList.add('theme-green');
-        }
+        if (meters >= 100000000) body.classList.add('theme-gold');
+        else if (meters >= 1000000) body.classList.add('theme-orange');
+        else if (meters >= 50000) body.classList.add('theme-purple');
+        else if (meters >= 10000) body.classList.add('theme-blue');
+        else body.classList.add('theme-green');
     }
 
     updateMultiplierUI() {
         const multButtons = document.querySelectorAll('.multBtn');
         multButtons.forEach(btn => {
-            const attrValue = btn.getAttribute('data-mult');
-            if (attrValue === this.currentMultiplier) {
+            if (btn.getAttribute('data-mult') === this.currentMultiplier) {
                 btn.classList.add('active');
             } else {
                 btn.classList.remove('active');
@@ -66,66 +66,57 @@ class Game {
 
     render() {
         const meterElem = document.getElementById('meterCounter');
-        if (meterElem) {
-            // Format total meters using the Formatter utility
-            meterElem.innerText = Formatter.format(this.player.meters, 'm');
-        }
+        if (meterElem) meterElem.innerText = Formatter.format(this.player.meters, 'm');
 
         const mpsElem = document.getElementById('mpsCounter');
-        if (mpsElem) {
-            // Format meters per second including active QTE buffs
-            mpsElem.innerText = Formatter.format(this.totalMps * this.player.buffMultiplier);
-        }
+        if (mpsElem) mpsElem.innerText = Formatter.format(this.totalMps * this.player.buffMultiplier);
 
         const mpcElem = document.getElementById('mpcCounter');
-        if (mpcElem) {
-            // Format meters per click including active QTE buffs
-            mpcElem.innerText = Formatter.format(this.player.metersPerClick * this.player.buffMultiplier);
-        }
+        if (mpcElem) mpcElem.innerText = Formatter.format(this.player.metersPerClick * this.player.buffMultiplier);
 
+        // Dynamisch alle items updaten via de array!
+        this.purchases.forEach(item => {
+            const counterElem = document.getElementById(`${item.id}Counter`);
+            const buttonElem = document.getElementById(`buy${item.id.charAt(0).toUpperCase() + item.id.slice(1)}Button`);
 
-        // Set here new upgrades / factories
+            if (counterElem) {
+                counterElem.innerText = `${item.name}: ${Formatter.format(item.count)}`;
+            }
 
-        // Render factory levels and costs
-        this.updateFactoryUI('cursorCounter', 'buyCursorButton', cursor);
-        this.updateFactoryUI('parkRutheCounter', 'buyParkRutheButton', parkRuthe);
-        this.updateFactoryUI('garageCounter', 'buyGarageButton', garage);
-        this.updateFactoryUI('eBikeCounter', 'buyEBikeButton', eBike);
+            if (buttonElem) {
+                const { amountToBuy, cost } = this.getBuyAmountAndCost(item);
+                const formattedCost = Formatter.format(cost, 'm');
 
-        // Render upgrade levels and costs
-        this.updateFactoryUI('clickUpgradeCounter', 'buyClickUpgradeButton', clickUpgrade);
-        this.updateFactoryUI('cursorUpgradeCounter', 'buyCursorUpgradeButton', cursorUpgrade);
-        this.updateFactoryUI('parkRutheUpgradeCounter', 'buyParkRutheUpgradeButton', parkRutheUpgrade);
-        this.updateFactoryUI('garageUpgradeCounter', 'buyGarageUpgradeButton', garageUpgrade);
-        this.updateFactoryUI('eBikeUpgradeCounter', 'buyEBikeUpgradeButton', eBikeUpgrade);
+                if (this.currentMultiplier === '1') {
+                    buttonElem.innerText = `Buy x1 (${formattedCost})`;
+                } else {
+                    buttonElem.innerText = `Buy x${amountToBuy} (${formattedCost})`;
+                }
+
+                buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
+            }
+        });
 
         this.updateTheme();
     }
 
     get totalMps() {
-        return this.purchases.reduce((sum, factory) => sum + (factory.totalMps || 0), 0);
+        return this.purchases.reduce((sum, item) => sum + item.totalMps, 0);
     }
 
-    getBuyAmountAndCost(factoryInstance) {
+    getBuyAmountAndCost(itemInstance) {
         let amount = 0;
-
         if (this.currentMultiplier === 'max') {
-            amount = factoryInstance.getMaxAffordable(this.player.meters);
+            amount = itemInstance.getMaxAffordable(this.player.meters);
             if (amount === 0) {
-                return {
-                    amountToBuy: 0,
-                    cost: factoryInstance.currentCost,
-                    nextUnitCost: factoryInstance.currentCost
-                };
+                return { amountToBuy: 0, cost: itemInstance.currentCost, nextUnitCost: itemInstance.currentCost };
             }
         } else {
             amount = parseInt(this.currentMultiplier, 10);
         }
 
-        const cost = factoryInstance.getCostFor(amount);
-        const nextUnitCost = factoryInstance.currentCost;
-
-        return { amountToBuy: amount, cost: cost, nextUnitCost: nextUnitCost };
+        const cost = itemInstance.getCostFor(amount);
+        return { amountToBuy: amount, cost: cost, nextUnitCost: itemInstance.currentCost };
     }
 
     update() {
@@ -139,34 +130,8 @@ class Game {
         this.render();
     }
 
-    updateFactoryUI(counterId, buttonId, factoryInstance) {
-        const counterElem = document.getElementById(counterId);
-        const buttonElem = document.getElementById(buttonId);
-
-        if (counterElem) {
-            // Format count value
-            counterElem.innerText = `${factoryInstance.name}: ${Formatter.format(factoryInstance.count)}`;
-        }
-
-        if (buttonElem) {
-            const { amountToBuy, cost } = this.getBuyAmountAndCost(factoryInstance);
-
-            // Format upgrade cost with meters unit
-            const formattedCost = Formatter.format(cost, 'm');
-
-            if (this.currentMultiplier === '1') {
-                buttonElem.innerText = `Buy x1 (${formattedCost})`;
-            } else {
-                buttonElem.innerText = `Buy x${amountToBuy} (${formattedCost})`;
-            }
-
-            buttonElem.disabled = this.player.meters < cost || amountToBuy === 0;
-        }
-    }
-
     setupEventListeners() {
         const bikeBtn = document.getElementById('bikeButton');
-
         if (bikeBtn) {
             bikeBtn.addEventListener('click', () => {
                 this.player.clickCounter();
@@ -176,9 +141,7 @@ class Game {
 
         const resetButton = document.getElementById("resetGameButton");
         if (resetButton) {
-            resetButton.addEventListener("click", () => {
-                this.resetGame();
-            });
+            resetButton.addEventListener("click", () => this.resetGame());
         }
 
         const multButtons = document.querySelectorAll('.multBtn');
@@ -191,29 +154,15 @@ class Game {
             });
         });
 
-
-        // also set new upgrades here
-
-        const purchases = [
-            { id: 'buyCursorButton', instance: cursor },
-            { id: 'buyParkRutheButton', instance: parkRuthe },
-            { id: 'buyGarageButton', instance: garage },
-            { id: 'buyEBikeButton', instance: eBike },
-
-            { id: 'buyClickUpgradeButton', instance: clickUpgrade },
-            { id: 'buyCursorUpgradeButton', instance: cursorUpgrade },
-            { id: 'buyParkRutheUpgradeButton', instance: parkRutheUpgrade },
-            { id: 'buyGarageUpgradeButton', instance: garageUpgrade },
-            { id: 'buyEBikeUpgradeButton', instance: eBikeUpgrade }
-        ];
-
-        purchases.forEach(({ id, instance }) => {
-            const btn = document.getElementById(id);
+        // Automatische event listeners koppelen op basis van de array!
+        this.purchases.forEach(item => {
+            const btnId = `buy${item.id.charAt(0).toUpperCase() + item.id.slice(1)}Button`;
+            const btn = document.getElementById(btnId);
             if (btn) {
                 btn.addEventListener('click', () => {
-                    const { amountToBuy } = this.getBuyAmountAndCost(instance);
+                    const { amountToBuy } = this.getBuyAmountAndCost(item);
                     if (amountToBuy > 0) {
-                        instance.buy(this.player, amountToBuy);
+                        item.buy(this.player, amountToBuy);
                         this.render();
                     }
                 });
@@ -222,6 +171,7 @@ class Game {
     }
 
     start() {
+        this.initUI(); // Genereer eerst de HTML elementen dynamisch
         this.loadGame();
         this.setupEventListeners();
 
@@ -238,25 +188,14 @@ class Game {
                 meters: this.player.meters,
                 metersPerClick: this.player.metersPerClick
             },
-
-
-            // also set new upgrades here
-
-            factories: {
-                cursor: cursor.count,
-                parkRuthe: parkRuthe.count,
-                garage: garage.count,
-                eBike: eBike.count
-            },
-            upgrades: {
-                clickUpgrade: clickUpgrade.count,
-                cursorUpgrade: cursorUpgrade.count,
-                parkRutheUpgrade: parkRutheUpgrade.count,
-                garageUpgrade: garageUpgrade.count,
-                eBikeUpgrade: eBikeUpgrade.count
-            },
+            counts: {},
             currentMultiplier: this.currentMultiplier
         };
+
+        // Slaat automatisch alle counts op via de ID's
+        this.purchases.forEach(item => {
+            saveData.counts[item.id] = item.count;
+        });
 
         localStorage.setItem("walkingGameSave", JSON.stringify(saveData));
     }
@@ -266,27 +205,19 @@ class Game {
         if (!savedGame) return;
 
         const saveData = JSON.parse(savedGame);
-
         this.player.meters = saveData.player.meters;
         this.player.metersPerClick = saveData.player.metersPerClick;
 
-
-        // also new upgrades here
-
-        cursor.count = saveData.factories.cursor;
-        parkRuthe.count = saveData.factories.parkRuthe;
-        garage.count = saveData.factories.garage;
-        eBike.count = saveData.factories.eBike;
-
-        clickUpgrade.count = saveData.upgrades.clickUpgrade;
-        cursorUpgrade.count = saveData.upgrades.cursorUpgrade;
-        parkRutheUpgrade.count = saveData.upgrades.parkRutheUpgrade;
-        garageUpgrade.count = saveData.upgrades.garageUpgrade;
-        eBikeUpgrade.count = saveData.upgrades.eBikeUpgrade;
+        if (saveData.counts) {
+            this.purchases.forEach(item => {
+                if (saveData.counts[item.id] !== undefined) {
+                    item.count = saveData.counts[item.id];
+                }
+            });
+        }
 
         this.currentMultiplier = saveData.currentMultiplier || '1';
         this.updateMultiplierUI();
-
         this.render();
     }
 
@@ -294,27 +225,15 @@ class Game {
         if (!confirm("Weet je zeker dat je alle voortgang wilt verwijderen?")) return;
 
         localStorage.removeItem("walkingGameSave");
-
         this.player.meters = 0;
         this.player.metersPerClick = 1;
 
-
-        //and finally here new upgrades
-
-        cursor.count = 0;
-        parkRuthe.count = 0;
-        garage.count = 0;
-        eBike.count = 0;
-
-        clickUpgrade.count = 0;
-        cursorUpgrade.count = 0;
-        parkRutheUpgrade.count = 0;
-        garageUpgrade.count = 0;
-        eBikeUpgrade.count = 0;
+        this.purchases.forEach(item => {
+            item.count = 0;
+        });
 
         this.currentMultiplier = "1";
         this.updateMultiplierUI();
-
         this.render();
     }
 }

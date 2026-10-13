@@ -110,7 +110,7 @@ class PurchasableItem {
 
             for (let i = 0; i < amount; i++) {
                 if (this.type === 'clickUpgrade') {
-                    player.metersPerClick *= 1.75;
+                    player.metersPerClick *= 2;
                 } else if (this.type === 'factoryUpgrade' && this.target) {
                     this.target.baseMps *= 2;
                 }
@@ -126,7 +126,7 @@ class PurchasableItem {
 // HIER VOEG JE IN DE TOEKOMST NIEUWE ITEMS TOE
 // ==========================================
 
-const cursor = new PurchasableItem('cursor', '👈Cursor', 5, 0.5, 'factory');
+const cursor = new PurchasableItem('cursor', '👈Cursor', 5, 1, 'factory');
 const parkRuthe = new PurchasableItem('parkRuthe', '🚴‍♀️Park Ruthe', 100, 10, 'factory');
 const garage = new PurchasableItem('garage', '🔳Garage', 5000, 250, 'factory');
 const eBike = new PurchasableItem('eBike', '🔋e-Bike', 100000, 5000, 'factory');
